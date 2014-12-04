@@ -14,6 +14,6 @@
 
 @interface Store : NSObject
 
-@property (nonatomic, strong, readonly) NSManagedObjectContext *defaultManagedObjectContext;
++ (NSManagedObjectContext *) defaultManagedObjectContext;
 
 @end

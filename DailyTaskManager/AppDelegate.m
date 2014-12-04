@@ -23,6 +23,10 @@
 {
     self.persistentStack = [[PersistentStack alloc] initWithStoreURL:self.storeURL modelURL:self.modelURL];
     self.managedObjectContext = self.persistentStack.managedObjectContext;
+    
+    //Shake to Undo
+    application.applicationSupportsShakeToEdit = YES;
+    
     return YES;
 }
 

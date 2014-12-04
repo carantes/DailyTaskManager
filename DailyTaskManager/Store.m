@@ -10,7 +10,7 @@
 
 @implementation Store
 
-- (NSManagedObjectContext *)defaultManagedObjectContext {
++ (NSManagedObjectContext *)defaultManagedObjectContext {
     
     NSManagedObjectContext *moc = nil;
     
