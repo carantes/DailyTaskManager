@@ -15,15 +15,16 @@
 
 @end
 
-@interface FetchedResultsControllerDataSource : NSObject <UITableViewDataSource, NSFetchedResultsControllerDelegate>
+@interface FetchedResultsControllerDataSource : NSObject <UITableViewDataSource, UITableViewDelegate,  NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, weak) id<FetchedResultsControllerDataSourceDelegate> delegate;
 @property (nonatomic, copy) NSString *reuseIdentifier;
+@property (nonatomic, copy) NSString *sortField;
 @property (nonatomic) BOOL paused;
 
 - (id)initWithTableView:(UITableView *)tableView;
 - (id)selectedItem;
-
+- (void)reorderObjectListFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath;
 
 @end

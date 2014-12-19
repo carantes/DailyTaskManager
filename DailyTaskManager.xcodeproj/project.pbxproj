@@ -10,9 +10,12 @@
 		875EC9A51A296F9C00F194E2 /* PersistentStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 875EC9A41A296F9C00F194E2 /* PersistentStack.m */; };
 		875EC9A81A2A098A00F194E2 /* FetchedResultsControllerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 875EC9A71A2A098A00F194E2 /* FetchedResultsControllerDataSource.m */; };
 		875EC9AE1A2A169700F194E2 /* Store.m in Sources */ = {isa = PBXBuildFile; fileRef = 875EC9AD1A2A169700F194E2 /* Store.m */; };
-		875EC9B21A2B4BDC00F194E2 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 875EC9B11A2B4BDC00F194E2 /* Task.m */; };
 		875EC9B51A2B4C6A00F194E2 /* Task+Management.m in Sources */ = {isa = PBXBuildFile; fileRef = 875EC9B41A2B4C6A00F194E2 /* Task+Management.m */; };
+		87B7D50F1A390A4100505365 /* TaskCheckBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B7D50E1A390A4100505365 /* TaskCheckBoxView.m */; };
+		87B7D5121A390DD000505365 /* TaskTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B7D5111A390DD000505365 /* TaskTableViewCell.m */; };
+		87BD91431A3C5ED6008A6664 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BD91421A3C5ED6008A6664 /* Task.m */; };
 		87C803771A2EA4380010DCB4 /* FadeMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87C803761A2EA4380010DCB4 /* FadeMessageView.m */; };
+		87E126311A4264DD00742FF6 /* PaddingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E126301A4264DD00742FF6 /* PaddingLabel.m */; };
 		87EB34151A256EA600883FF8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB34141A256EA600883FF8 /* main.m */; };
 		87EB34181A256EA600883FF8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB34171A256EA600883FF8 /* AppDelegate.m */; };
 		87EB341B1A256EA700883FF8 /* DailyTaskManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87EB34191A256EA700883FF8 /* DailyTaskManager.xcdatamodeld */; };
@@ -22,7 +25,6 @@
 		87EB34321A256EA700883FF8 /* DailyTaskManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB34311A256EA700883FF8 /* DailyTaskManagerTests.m */; };
 		87EB343D1A2570CF00883FF8 /* TaskListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB343C1A2570CF00883FF8 /* TaskListTableViewController.m */; };
 		87EB34471A25740400883FF8 /* ArrayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB34461A25740400883FF8 /* ArrayDataSource.m */; };
-		87EB344D1A2686DC00883FF8 /* UITableViewCell+ConfigureForTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB344C1A2686DC00883FF8 /* UITableViewCell+ConfigureForTask.m */; };
 		87EB34531A26BFEB00883FF8 /* TaskDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB34521A26BFEB00883FF8 /* TaskDetailTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -43,12 +45,18 @@
 		875EC9A71A2A098A00F194E2 /* FetchedResultsControllerDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FetchedResultsControllerDataSource.m; sourceTree = "<group>"; };
 		875EC9AC1A2A169700F194E2 /* Store.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Store.h; sourceTree = "<group>"; };
 		875EC9AD1A2A169700F194E2 /* Store.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Store.m; sourceTree = "<group>"; };
-		875EC9B01A2B4BDC00F194E2 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
-		875EC9B11A2B4BDC00F194E2 /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
 		875EC9B31A2B4C6A00F194E2 /* Task+Management.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Task+Management.h"; sourceTree = "<group>"; };
 		875EC9B41A2B4C6A00F194E2 /* Task+Management.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Task+Management.m"; sourceTree = "<group>"; };
+		87B7D50D1A390A4100505365 /* TaskCheckBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskCheckBoxView.h; sourceTree = "<group>"; };
+		87B7D50E1A390A4100505365 /* TaskCheckBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCheckBoxView.m; sourceTree = "<group>"; };
+		87B7D5101A390DD000505365 /* TaskTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskTableViewCell.h; sourceTree = "<group>"; };
+		87B7D5111A390DD000505365 /* TaskTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskTableViewCell.m; sourceTree = "<group>"; };
+		87BD91411A3C5ED6008A6664 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Task.h; path = ../Task.h; sourceTree = "<group>"; };
+		87BD91421A3C5ED6008A6664 /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Task.m; path = ../Task.m; sourceTree = "<group>"; };
 		87C803751A2EA4380010DCB4 /* FadeMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FadeMessageView.h; sourceTree = "<group>"; };
 		87C803761A2EA4380010DCB4 /* FadeMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FadeMessageView.m; sourceTree = "<group>"; };
+		87E1262F1A4264DD00742FF6 /* PaddingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaddingLabel.h; sourceTree = "<group>"; };
+		87E126301A4264DD00742FF6 /* PaddingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaddingLabel.m; sourceTree = "<group>"; };
 		87EB340F1A256EA600883FF8 /* DailyTaskManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyTaskManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87EB34131A256EA600883FF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		87EB34141A256EA600883FF8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -65,8 +73,6 @@
 		87EB343C1A2570CF00883FF8 /* TaskListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskListTableViewController.m; sourceTree = "<group>"; };
 		87EB34451A25740400883FF8 /* ArrayDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayDataSource.h; sourceTree = "<group>"; };
 		87EB34461A25740400883FF8 /* ArrayDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArrayDataSource.m; sourceTree = "<group>"; };
-		87EB344B1A2686DC00883FF8 /* UITableViewCell+ConfigureForTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+ConfigureForTask.h"; sourceTree = "<group>"; };
-		87EB344C1A2686DC00883FF8 /* UITableViewCell+ConfigureForTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+ConfigureForTask.m"; sourceTree = "<group>"; };
 		87EB34511A26BFEB00883FF8 /* TaskDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskDetailTableViewController.h; sourceTree = "<group>"; };
 		87EB34521A26BFEB00883FF8 /* TaskDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskDetailTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,8 +98,8 @@
 		875EC9AF1A2B4B0B00F194E2 /* Managed Objects */ = {
 			isa = PBXGroup;
 			children = (
-				875EC9B01A2B4BDC00F194E2 /* Task.h */,
-				875EC9B11A2B4BDC00F194E2 /* Task.m */,
+				87BD91411A3C5ED6008A6664 /* Task.h */,
+				87BD91421A3C5ED6008A6664 /* Task.m */,
 			);
 			name = "Managed Objects";
 			sourceTree = "<group>";
@@ -119,7 +125,6 @@
 		87EB34111A256EA600883FF8 /* DailyTaskManager */ = {
 			isa = PBXGroup;
 			children = (
-				87EB34421A2571EE00883FF8 /* AppDelegate */,
 				87EB34401A25710500883FF8 /* Controller */,
 				87EB343F1A2570F700883FF8 /* View */,
 				87EB343E1A2570EC00883FF8 /* Model */,
@@ -178,6 +183,8 @@
 			children = (
 				87C803751A2EA4380010DCB4 /* FadeMessageView.h */,
 				87C803761A2EA4380010DCB4 /* FadeMessageView.m */,
+				87B7D50D1A390A4100505365 /* TaskCheckBoxView.h */,
+				87B7D50E1A390A4100505365 /* TaskCheckBoxView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -185,6 +192,7 @@
 		87EB34401A25710500883FF8 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				87EB34421A2571EE00883FF8 /* AppDelegate */,
 				87EB34441A2573B100883FF8 /* TaskList */,
 				87EB34541A26BFF100883FF8 /* TaskDetail */,
 			);
@@ -198,6 +206,8 @@
 				87EB34461A25740400883FF8 /* ArrayDataSource.m */,
 				875EC9A61A2A098A00F194E2 /* FetchedResultsControllerDataSource.h */,
 				875EC9A71A2A098A00F194E2 /* FetchedResultsControllerDataSource.m */,
+				87E1262F1A4264DD00742FF6 /* PaddingLabel.h */,
+				87E126301A4264DD00742FF6 /* PaddingLabel.m */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -224,8 +234,8 @@
 			children = (
 				87EB343B1A2570CF00883FF8 /* TaskListTableViewController.h */,
 				87EB343C1A2570CF00883FF8 /* TaskListTableViewController.m */,
-				87EB344B1A2686DC00883FF8 /* UITableViewCell+ConfigureForTask.h */,
-				87EB344C1A2686DC00883FF8 /* UITableViewCell+ConfigureForTask.m */,
+				87B7D5101A390DD000505365 /* TaskTableViewCell.h */,
+				87B7D5111A390DD000505365 /* TaskTableViewCell.m */,
 			);
 			name = TaskList;
 			sourceTree = "<group>";
@@ -339,14 +349,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87BD91431A3C5ED6008A6664 /* Task.m in Sources */,
 				87C803771A2EA4380010DCB4 /* FadeMessageView.m in Sources */,
 				875EC9A51A296F9C00F194E2 /* PersistentStack.m in Sources */,
+				87B7D5121A390DD000505365 /* TaskTableViewCell.m in Sources */,
+				87E126311A4264DD00742FF6 /* PaddingLabel.m in Sources */,
 				87EB34181A256EA600883FF8 /* AppDelegate.m in Sources */,
 				87EB34151A256EA600883FF8 /* main.m in Sources */,
 				875EC9B51A2B4C6A00F194E2 /* Task+Management.m in Sources */,
-				875EC9B21A2B4BDC00F194E2 /* Task.m in Sources */,
 				87EB343D1A2570CF00883FF8 /* TaskListTableViewController.m in Sources */,
-				87EB344D1A2686DC00883FF8 /* UITableViewCell+ConfigureForTask.m in Sources */,
+				87B7D50F1A390A4100505365 /* TaskCheckBoxView.m in Sources */,
 				87EB34471A25740400883FF8 /* ArrayDataSource.m in Sources */,
 				875EC9A81A2A098A00F194E2 /* FetchedResultsControllerDataSource.m in Sources */,
 				875EC9AE1A2A169700F194E2 /* Store.m in Sources */,

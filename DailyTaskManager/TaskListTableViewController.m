@@ -7,7 +7,7 @@
 //
 
 #import "TaskListTableViewController.h"
-#import "UITableViewCell+ConfigureForTask.h"
+#import "TaskTableViewCell.h"
 #import "TaskDetailTableViewController.h"
 #import "FetchedResultsControllerDataSource.h"
 #import "Task+Management.h"
@@ -15,7 +15,7 @@
 
 static NSString * const TaskCellIdentifier = @"taskCell";
 
-@interface TaskListTableViewController () <FetchedResultsControllerDataSourceDelegate>
+@interface TaskListTableViewController () <FetchedResultsControllerDataSourceDelegate, TaskTableViewCellDelegate>
 
 @property (nonatomic, strong) FetchedResultsControllerDataSource *dataSource;
 @property (nonatomic, strong) FadeMessageView *fadeMessageView;
@@ -28,10 +28,11 @@ static NSString * const TaskCellIdentifier = @"taskCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setupFetchedResultsController];
-    [self setupFadeOutMessage];
+    UIImage *bgImage = [UIImage imageNamed:@"wood_background"];
+    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:bgImage];
     
-    [self.fadeMessageView addTarget:self action:@selector(undoMessageClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self setupFetchedResultsController];
+
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
@@ -46,6 +47,8 @@ static NSString * const TaskCellIdentifier = @"taskCell";
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    //Prevent BUG when fetch multiple FetchedResultsController 
     self.dataSource.paused = YES;
 }
 
@@ -56,16 +59,17 @@ static NSString * const TaskCellIdentifier = @"taskCell";
     self.dataSource.fetchedResultsController = [Task fetchedResultsController];
     self.dataSource.delegate = self;
     self.dataSource.reuseIdentifier = @"taskCell";
-}
-
-- (void)setupFadeOutMessage
-{
-    self.fadeMessageView = [[FadeMessageView alloc] initWithTableView:self.tableView];
-    self.fadeMessageView.backgroundColor = [UIColor colorWithRed:(51/255.0) green:(73/255.0) blue:(93/255.0) alpha:1.0];
-    [self.view addSubview:_fadeMessageView];
+    self.dataSource.sortField = @"displayOrder";
 }
 
 - (void)showPopOverActionText:(NSString *)message {
+    
+    if (!_fadeMessageView) {
+        self.fadeMessageView = [[FadeMessageView alloc] initWithTableView:self.tableView];
+        self.fadeMessageView.backgroundColor = [UIColor colorWithRed:(51/255.0) green:(73/255.0) blue:(93/255.0) alpha:1.0];
+        [self.fadeMessageView addTarget:self action:@selector(undoMessageClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:_fadeMessageView];
+    }
     
     self.fadeMessageView.message = message;
 }
@@ -89,7 +93,8 @@ static NSString * const TaskCellIdentifier = @"taskCell";
 
 - (void)configureCell:(id)theCell withObject:(id)object
 {
-    UITableViewCell* cell = theCell;
+    TaskTableViewCell* cell = theCell;
+    cell.delegate = self;
     Task *task = object;
     [cell configureForTask:task];
 }
@@ -97,11 +102,44 @@ static NSString * const TaskCellIdentifier = @"taskCell";
 - (void)deleteObject:(id)object
 {
     Task *task = object;
-    NSString* actionName = [NSString stringWithFormat:NSLocalizedString(@"\"Excluir %@\"", @"Delete undo action name"), task.title];
-    [self.undoManager setActionName:actionName];
     
-    [self.managedObjectContext deleteObject:task];
-    [self showPopOverActionText:[NSString stringWithFormat:@"Clique aqui para desfazer a ação %@", actionName]];
+    NSString* actionName = [NSString stringWithFormat:@"Excluir %@", task.title];
+    
+    // Save Changes
+    NSError *error = nil;
+    [self.managedObjectContext deleteObject:object];
+    [self.managedObjectContext save:&error];
+    
+    if (error) {
+        NSLog(@"Error %@ with user info %@.", error, error.userInfo);
+    }
+    else {
+        [self.undoManager setActionName:actionName];
+        [self showPopOverActionText:[NSString stringWithFormat:@"Clique aqui para desfazer a ação %@", actionName]];
+    }
+}
+
+#pragma mark TaskTableViewCell Delegate
+
+- (void)moveCell:(TaskTableViewCell *)cell isChecked:(BOOL)isChecked {
+    
+    NSIndexPath *fromIndexPath = [self.tableView indexPathForCell:cell];
+    Task *task = [self.dataSource.fetchedResultsController objectAtIndexPath:fromIndexPath];
+    
+    task.isFinished = [NSNumber numberWithBool:isChecked];
+    
+    NSIndexPath *toIndexPath;
+    
+    if (isChecked) {
+        toIndexPath = [NSIndexPath indexPathForItem:0 inSection:1];
+    } else {
+        id <NSFetchedResultsSectionInfo> sectionInfo = self.dataSource.fetchedResultsController.sections[0];
+        toIndexPath = [NSIndexPath indexPathForItem:[sectionInfo numberOfObjects]-1 inSection:0];
+    }
+    
+    [self.dataSource reorderObjectListFromIndexPath:fromIndexPath toIndexPath:toIndexPath];
+    
+    [[self managedObjectContext] save:nil];
 }
 
 #pragma mark - Navigation

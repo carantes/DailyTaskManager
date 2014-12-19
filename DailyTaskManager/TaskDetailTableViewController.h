@@ -11,7 +11,7 @@
 
 @class Task;
 
-@interface TaskDetailTableViewController : UITableViewController
+@interface TaskDetailTableViewController : UITableViewController <UITextFieldDelegate>
 
 @property (nonatomic) Task *currentTask;
 

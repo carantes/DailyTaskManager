@@ -34,11 +34,15 @@
     NSFetchRequest* request = [NSFetchRequest fetchRequestWithEntityName:[self.class entityName]];
     
     //request.predicate = [NSPredicate predicateWithFormat:@"parent = %@", self];
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"dueDate" ascending:NO]];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"isFinished" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"displayOrder" ascending:YES]];
     
     [request setFetchLimit:50];
     
-    return [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:Store.defaultManagedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    return [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:Store.defaultManagedObjectContext sectionNameKeyPath:@"isFinishedDescription" cacheName:nil];
+}
+
+- (NSString *)isFinishedDescription {
+    return [self.isFinished boolValue] == true ? @"FINISHED" : @"IN PROGRESS";
 }
 
 @end

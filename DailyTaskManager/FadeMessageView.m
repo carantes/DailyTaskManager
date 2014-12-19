@@ -48,8 +48,8 @@ static const NSInteger DEFAULT_MARGIN_Y = 30;
     self = [super initWithFrame:CGRectMake(0, 0, tableView.frame.size.width-(DEFAULT_MARGIN_X*2), DEFAULT_HEIGHT)];
     if (self) {
         self.tableView = tableView;
-        self.tableView.contentInset = UIEdgeInsetsMake(0.0, 0.0, CGRectGetHeight(self.bounds), 0.0);
-        self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, CGRectGetHeight(self.bounds), 0.0);
+        //self.tableView.contentInset = UIEdgeInsetsMake(0.0, 0.0, CGRectGetHeight(self.bounds), 0.0);
+        //self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, CGRectGetHeight(self.bounds), 0.0);
         
         [self.tableView addObserver:self
                          forKeyPath:@"contentOffset"
@@ -64,7 +64,7 @@ static const NSInteger DEFAULT_MARGIN_Y = 30;
 - (void)dealloc
 {
     if (self.tableView) {
-        [self.tableView removeObserver:self forKeyPath:@"frame"];
+        [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
     }
 }
 
@@ -83,7 +83,7 @@ static const NSInteger DEFAULT_MARGIN_Y = 30;
 {
     if (!_messageButton) {
         _messageButton = [[UIButton alloc] initWithFrame:self.bounds];
-        _messageButton.titleLabel.numberOfLines = 2;
+        _messageButton.titleLabel.preferredMaxLayoutWidth = self.bounds.size.width - (DEFAULT_MARGIN_X*2);
         _messageButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _messageButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         _messageButton.backgroundColor = [UIColor clearColor];

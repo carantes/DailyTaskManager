@@ -4,6 +4,7 @@
 //
 
 #import "FetchedResultsControllerDataSource.h"
+#import "PaddingLabel.h"
 
 @interface FetchedResultsControllerDataSource()
 
@@ -20,6 +21,7 @@
     if (self) {
         self.tableView = tableView;
         self.tableView.dataSource = self;
+        self.tableView.delegate = self;
     }
     return self;
 }
@@ -27,6 +29,58 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView
 {
     return self.fetchedResultsController.sections.count;
+}
+
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    
+    static NSString *sectionHeaderCell = @"sectionHeaderCell";
+    UITableViewCell *headerView = [tableView dequeueReusableCellWithIdentifier:sectionHeaderCell];
+    
+    if (headerView == nil){
+        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+        
+        return [sectionInfo name];
+    }
+    else {
+        return nil;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    static NSString *sectionHeaderCell = @"sectionHeaderCell";
+    UITableViewCell *headerView = [tableView dequeueReusableCellWithIdentifier:sectionHeaderCell];
+    
+    if (headerView == nil){
+        return 0;
+    }
+    else {
+        return 40;
+    }
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    static NSString *sectionHeaderCell = @"sectionHeaderCell";
+    UITableViewCell *headerView = [tableView dequeueReusableCellWithIdentifier:sectionHeaderCell];
+    
+    if (headerView == nil){
+        return nil;
+    }
+    else {
+        PaddingLabel *sectionTitleLabel = (PaddingLabel *)[headerView.contentView viewWithTag:1];
+        sectionTitleLabel.layer.cornerRadius = 6;
+        sectionTitleLabel.layer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4f].CGColor;
+        
+        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+        
+        sectionTitleLabel.text = [NSString stringWithFormat:@" %@ ",[sectionInfo name]];
+        [sectionTitleLabel sizeToFit];
+        
+        return headerView.contentView;
+    }
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)sectionIndex
@@ -43,6 +97,54 @@
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0) {
+        return YES;
+    }
+    else
+        return NO;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    
+    [self reorderObjectListFromIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+    [self.fetchedResultsController.managedObjectContext save:nil];
+}
+
+- (void)reorderObjectListFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath  {
+    
+    NSMutableArray *objectList = [[self.fetchedResultsController fetchedObjects] mutableCopy];
+    
+    // Grab the item we're moving.
+    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:fromIndexPath];
+    
+    // Remove the object we're moving from the array.
+    [objectList removeObject:object];
+    // Now re-insert it at the destination.
+    [objectList insertObject:object atIndex:[toIndexPath row]];
+    
+    // All of the objects are now in their correct order. Update each
+    // object's displayOrder field by iterating through the array.
+    int i = 0;
+    for (NSManagedObject *mo in objectList)
+    {
+        [mo setValue:[NSNumber numberWithInt:i++] forKey:self.sortField];
+    }
+    
+}
+
+
+- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
+    
+    if (proposedDestinationIndexPath.section != sourceIndexPath.section) {
+        return sourceIndexPath;
+    }
+    else {
+        return proposedDestinationIndexPath;
+    }
+}
+
 - (BOOL)tableView:(UITableView*)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath
 {
     return YES;
@@ -51,8 +153,8 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.delegate deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-        
     }
+    
 }
 
 #pragma mark NSFetchedResultsControllerDelegate
@@ -72,9 +174,23 @@
     if (type == NSFetchedResultsChangeInsert) {
         [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     } else if (type == NSFetchedResultsChangeMove) {
-        [self.tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                         withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                         withRowAnimation:UITableViewRowAnimationFade];
     } else if (type == NSFetchedResultsChangeDelete) {
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else {
+        NSLog(@"outros");
+    }
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
+{
+    if (type == NSFetchedResultsChangeInsert) {
+        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+    } else if (type == NSFetchedResultsChangeDelete) {
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
     } else {
         NSAssert(NO,@"");
     }
@@ -87,7 +203,6 @@
     fetchedResultsController.delegate = self;
     [fetchedResultsController performFetch:NULL];
 }
-
 
 - (id)selectedItem
 {
